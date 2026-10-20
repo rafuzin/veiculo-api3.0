@@ -1,7 +1,7 @@
 import { pool } from "../database/db.js";
 
 class veiculosService{
-    async getall() {
+    async getById() {
         const res = await pool.query("SELECT * FROM veiculos")
         return res.rows
     }

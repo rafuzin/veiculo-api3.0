@@ -3,15 +3,28 @@ import { veiculosServices } from "../services/veiculos.Services.js";
 
 export const veiculosRouter = Router();
 
-veiculosRouter.get("/", async (req, res) => {
+veiculosRouter.get("/:id", async (req, res) => {
     try {
-        const veiculos = await veiculosServices.getall();
+        const veiculos = await veiculosServices.getall(veiculoId);
+        res.json(veiculos);
+    }catch (error) {
+    
+        console.error (error);
+        res.status(500).json({error: "Erro ao buscar veiculos"})
+    }
+});
+
+veiculosRouter.get("/:id", async (req, res) => {
+    const veiculoId = req.params.id 
+    try {
+        const veiculos = await veiculosServices.getById(veiculoId);
         res.json(veiculos);
     }catch (error) {
     
         console.error (error);
     }
 });
+
 veiculosRouter.post("/", async (req, res) => {
     try {
         const veiculos = await veiculosServices.create(req.body);
